@@ -20,6 +20,7 @@ AppAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
+        <link rel="stylesheet" href= <?= Yii::getAlias('@web').'/css/fontawesome-6.6.0/css/all.min.css' ?> />
         <?php $this->head() ?>
     </head>
     <body class="d-flex flex-column h-100">
