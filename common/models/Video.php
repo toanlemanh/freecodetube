@@ -32,6 +32,10 @@ class Video extends \yii\db\ActiveRecord
      */
     public $video;
     /**
+     * @var \yii\web\UploadedFile
+     */
+    public $thumbnailFile;
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -116,6 +120,10 @@ class Video extends \yii\db\ActiveRecord
             $this->video_name = $this->video->name;
             $this->title = $this->video->name;
         }
+        if ($this->thumbnailFile)
+        {
+            $this->has_thumbnail = 1;
+        }
         $saved = parent::save($runValidation, $attributeNames);
         if (!$saved) {
             return false;
@@ -129,11 +137,24 @@ class Video extends \yii\db\ActiveRecord
             }
             $this->video->saveAs($videoPath);
         }
+        if ($this->thumbnailFile)
+        {
+            $thumbnailPath = Yii::getAlias("@frontend/storage/thumbs/".$this->video_id.".jpg");
+            if (!is_dir(dirname($thumbnailPath)))
+            {
+                FileHelper::createDirectory(dirname($thumbnailPath));
+            }
+            $this->thumbnailFile->saveAs($thumbnailPath);
+        }
         return true;
     }
     public function generateVideoLink ()
     {
         return Yii::$app->params['frontendUrl'] .'storage/videos/'. $this->video_id . '.mp4';
+    }
+    public function generateThumbLink ()
+    {
+        return Yii::$app->params['frontendUrl'] .'storage/thumbs/'. $this->video_id . '.jpg';
     }
     public function getStatusLabels()
     {

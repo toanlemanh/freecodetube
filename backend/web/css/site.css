@@ -138,7 +138,8 @@ a.desc:after {
     height: 200px;
 
 }
-input[type="file"] {
+/*input[type="file"]*/
+#videoFile{
     position: absolute;
     width: 1px;
     height: 1px;

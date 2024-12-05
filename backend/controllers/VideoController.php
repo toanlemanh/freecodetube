@@ -100,7 +100,9 @@ class VideoController extends Controller
     public function actionUpdate($video_id)
     {
         $model = $this->findModel($video_id);
-
+        $model->thumbnailFile = UploadedFile::getInstanceByName( 'thumbnailFile');
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!validate file ??
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!DTO
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'video_id' => $model->video_id]);
         }

@@ -22,7 +22,7 @@ $this->title = 'Create Video';
                 'options' => ['enctype' => 'multipart/form-data'],
         ]) ?>
             <!-- Hidden file input -->
-            <input type="file" id="videoFile" name="video">
+            <input type="file" id="videoFile" accept="video/mp4" name="video">
             <!-- Custom button for the file input -->
             <label for="videoFile" class="custom-file-label">Choose File</label>
        <?php ActiveForm::end() ?>
