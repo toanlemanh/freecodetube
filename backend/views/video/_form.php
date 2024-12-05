@@ -16,6 +16,7 @@ use yii\bootstrap5\ActiveForm;
 
     <div class="row gx-5">
         <div class="col-sm-8">
+            <?php echo $form->errorSummary($model) ?>
             <?= $form->field($model, 'title')->textInput(['maxlength' => 512]) ?>
             <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
             <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>

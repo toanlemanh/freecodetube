@@ -54,8 +54,7 @@ use yii\Helpers\Html;
                Create video
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Upload Video</a></li>
-                <li><a class="dropdown-item" href="#">Edit Video</a></li>
+                <li><a class="dropdown-item" href="../video/create">Upload Video</a></li>
             </ul>
             <?php
             echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex w-100 justify-content-end'])
