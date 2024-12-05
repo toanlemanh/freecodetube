@@ -3,6 +3,9 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\helpers\FileHelper;
 
 /**
  * This is the model class for table "{{%video}}".
@@ -22,6 +25,12 @@ use Yii;
  */
 class Video extends \yii\db\ActiveRecord
 {
+    const STATUS_UNLISTED = 0;
+    const STATUS_PUBLISHED = 1;
+    /**
+     * @var \yii\web\UploadedFile
+     */
+    public $video;
     /**
      * {@inheritdoc}
      */
@@ -29,9 +38,21 @@ class Video extends \yii\db\ActiveRecord
     {
         return '{{%video}}';
     }
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+            [
+                'class' => BlameableBehavior::class,
+                'updatedByAttribute' => false,
+            ]
+        ];
+    }
 
     /**
      * {@inheritdoc}
+     *
+     * I set some default values using rules => by default
      */
     public function rules()
     {
@@ -40,6 +61,8 @@ class Video extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['created_by', 'status', 'has_thumbnail', 'created_at', 'updated_at'], 'integer'],
             [['video_id'], 'string', 'max' => 16],
+            [['status'], 'default', 'value'=> self::STATUS_UNLISTED],
+            [['has_thumbnail'], 'default', 'value'=> 0],
             [['title', 'tags', 'video_name'], 'string', 'max' => 512],
             [['video_id'], 'unique'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
@@ -82,5 +105,34 @@ class Video extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\query\VideoQuery(get_called_class());
+    }
+    public function save($runValidation = true, $attributeNames = null):bool
+    {
+        // validation and get valid data from video object
+        // videoId => random string , not guessable video name => store in file system and database
+        $isInserted = $this->isNewRecord;
+        if ($isInserted) {
+            $this->video_id = Yii::$app->security->generateRandomString(8);
+            $this->video_name = $this->video->name;
+            $this->title = $this->video->name;
+        }
+        $saved = parent::save($runValidation, $attributeNames);
+        if (!$saved) {
+            return false;
+        }
+        if ($isInserted) {
+            // store video in file system in path
+            // check directory @frontend/storage/videos with unique id
+            $videoPath = Yii::getAlias('@frontend/storage/videos/' . $this->video_id . '.mp4');
+            if (!is_dir(dirname($videoPath))) {
+                FileHelper::createDirectory(dirname($videoPath));
+            }
+            $this->video->saveAs($videoPath);
+        }
+        return true;
+    }
+    public function generateVideoLink ()
+    {
+        return Yii::$app->params['frontendUrl'] .'storage/videos/'. $this->video_id . '.mp4';
     }
 }

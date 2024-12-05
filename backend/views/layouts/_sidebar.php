@@ -6,6 +6,6 @@
         ['label' => 'Dashboard', 'url' => ['/site/index']],
         ['label' => 'Videos', 'url' => ['/video/index']],
     ],
-    'options' => ['class' => 'd-flex flex-column p-3 bg-light h-100'],
+    'options' => ['class' => 'side-item pt-2 d-flex flex-column bg-light vh-100'],
 ]) ?>
 

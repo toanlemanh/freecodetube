@@ -23,7 +23,7 @@ AppAsset::register($this);
         <link rel="stylesheet" href= <?= Yii::getAlias('@web').'/css/fontawesome-6.6.0/css/all.min.css' ?> />
         <?php $this->head() ?>
     </head>
-    <body class="d-flex flex-column h-100">
+    <body class="">
     <?php $this->beginBody() ?>
 
     <!-- All Pages have Header -->
@@ -31,6 +31,7 @@ AppAsset::register($this);
     <?= $content ?>
     <?php $this->endBody() ?>
     </body>
+    <script src=<?=Yii::getAlias('@web').'/app.js' ?>></script>
     </html>
 <?php $this->endPage();
 

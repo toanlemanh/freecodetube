@@ -42,7 +42,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-//                '<alias:\w+>' => 'site/<alias>'
+                'video/update/<video_id>' => 'video/update',
             ],
         ],
         'assetManager' => [
