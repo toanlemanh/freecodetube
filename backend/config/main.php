@@ -47,7 +47,11 @@ return [
         ],
         'assetManager' => [
             'appendTimestamp' => true,
-        ]
+        ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'timeFormat' => 'php:H:i:s', // Default time format
+        ],
     ],
     'params' => $params,
 ];

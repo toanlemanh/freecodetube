@@ -167,8 +167,8 @@ class Video extends \yii\db\ActiveRecord
     public function getStatusLabels()
     {
         return [
-            self::STATUS_PUBLISHED => 'Published',
             self::STATUS_UNLISTED => 'Unlisted',
+            self::STATUS_PUBLISHED => 'Published'
         ];
     }
 }

@@ -18,23 +18,31 @@ $this->title = 'Videos';
     <p>
         <?= Html::a('Create Video', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'video_id',
-            'title',
+            ['attribute' => 'video',
+                'content' => function($model)
+                {
+                    return $this->render('video_item', ['data' => $model]);
+                },
+                'contentOptions' => ['style' => 'width: 500px;'],
+            ],
+            [
+                    'attribute' => 'status',
+                'content' => function ($model)
+                {
+                    return $model->getStatusLabels()[$model->status];
+                }
+            ],
             'description:ntext',
-            'created_by',
+            [ 'attribute'=>'created_at',
+                'format'=> 'datetime',
+            'contentOptions' => ['style' => 'width: 150px;'],
+                ],
             'tags',
-            //'status',
-            //'has_thumbnail',
-            //'video_name',
-            //'created_at',
-            //'updated_at',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Video $model, $key, $index, $column) {
