@@ -6,6 +6,8 @@ use yii\bootstrap5\ActiveForm;
 /** @var yii\web\View $this */
 /** @var common\models\Video $model */
 /** @var yii\bootstrap5\ActiveForm $form */
+
+\backend\assets\TagsInputAsset::register($this);
 ?>
 
 <div class="video-form">
@@ -19,12 +21,16 @@ use yii\bootstrap5\ActiveForm;
             <?php echo $form->errorSummary($model) ?>
             <?= $form->field($model, 'title')->textInput(['maxlength' => 512]) ?>
             <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-            <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'tags', [
+                    'inputOptions' => ['data-role' => 'tagsInput']])->textInput(['maxlength' => true]) ?>
+
             <?= $form->field($model, 'thumbnailFile')->fileInput([
                     'name' => 'thumbnailFile',
                     'accept' => 'image/*',
             ])->hint('To upload a new file')->label('Choose your thumbnail:') ;
             ?>
+
         </div>
         <div class="col-sm-4">
             Demo Video Display

@@ -8,6 +8,7 @@ use yii\bootstrap5\ActiveForm;
 /** @var yii\bootstrap5\ActiveForm $form */
 
 $this->title = 'Create Video';
+\backend\assets\AppAsset::register($this);
 ?>
 <div class="video-create ">
 
