@@ -5,6 +5,9 @@ namespace backend\controllers;
 use common\models\Video;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use yii\filters\auth\HttpBasicAuth;
+use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,6 +32,20 @@ class VideoController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    // all action should be authorized first
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+
+//                'basicAuth' => [
+//                    'class' => HttpBasicAuth::class,
+//                ],
             ]
         );
     }
@@ -40,8 +57,13 @@ class VideoController extends Controller
      */
     public function actionIndex()
     {
+        // config Video ActiveQuery
+        // this passes $dataProvider to view
+        // Data view combines with $dataProvider to display paginated or sorted data
         $dataProvider = new ActiveDataProvider([
-            'query' => Video::find(),
+            'query' => Video::find()
+                ->creator(Yii::$app->user->id)
+                ->latest(),
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -121,8 +143,7 @@ class VideoController extends Controller
      */
     public function actionDelete($video_id)
     {
-        $this->findModel($video_id)->delete();
-
+       $this->findModel($video_id)->delete();
         return $this->redirect(['index']);
     }
 

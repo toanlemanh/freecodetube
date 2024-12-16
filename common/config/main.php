@@ -9,5 +9,7 @@ return [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],
+        'language' => 'vi',
+        'sourceLanguage' => 'en-US',
     ],
 ];

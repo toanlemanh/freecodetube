@@ -102,16 +102,17 @@ a.desc:after {
     text-decoration: none;
 }
 /* Highlight the active or hovered nav-link */
-.nav-link {
+aside .nav-link {
     position: relative;
     color: red !important; /* Bootstrap default text color */
     padding-left: 1.5rem; /* Add some space for the left border */
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+    width: 300px;
 }
 
-.nav-link.active::before,
-.nav-link:hover::before {
+aside .nav-link.active::before,
+aside .nav-link:hover::before {
     content: '';
     position: absolute;
     top: 0;
@@ -120,6 +121,12 @@ a.desc:after {
     width: 5px;
     background-color: red; /* The red left border */
     border-radius: 0 3px 3px 0; /* Optional for rounded border */
+}
+aside .nav-link.active{
+    background-color: #c1c6ca;
+}
+aside .side-item {
+    width: 300px;
 }
 .avatar {
     width: 30px;

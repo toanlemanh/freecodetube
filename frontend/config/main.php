@@ -44,6 +44,9 @@ return [
 //                '<alias:\w+>' => 'site/<alias>'
             ],
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+        ]
     ],
     'params' => $params,
 ];

@@ -90,10 +90,6 @@ a.desc:after {
     outline: none;
 }
 
-.side-item {
-    width: 300px;
-    height: 100%;
-}
 
 /* style breadcrumb widget as in previous bootstrap versions */
 .breadcrumb {
@@ -161,6 +157,9 @@ a.desc:after {
 }
 .custom-file-label:hover {
     background-color: #0056b3;
+}
+.side-item {
+    width: 200px;
 }
 
 

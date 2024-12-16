@@ -12,8 +12,9 @@ use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
 $this->beginContent('@app/views/layouts/base.php');
+\Yii::$app->language = 'vi';
 ?>
-<main role="main" class="mt-5 d-flex">
+<main role="main" class="mt-5 d-flex h-100">
 <!--  Side bar   -->
     <?php echo $this->render('_sidebar.php') ?>
     <div class="w-100 pt-4 mx-5">

@@ -22,16 +22,15 @@ $this->title = 'Videos';
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            ['attribute' => 'video',
+//fill data from model to columns
+            ['attribute' => 'title',
                 'content' => function($model)
                 {
                     return $this->render('video_item', ['data' => $model]);
                 },
-                'contentOptions' => ['style' => 'width: 500px;'],
+                'contentOptions' => ['style' => 'max-width: 500px !important;'],
             ],
-            [
-                    'attribute' => 'status',
+            ['attribute' => 'status',
                 'content' => function ($model)
                 {
                     return $model->getStatusLabels()[$model->status];
@@ -40,16 +39,27 @@ $this->title = 'Videos';
             'description:ntext',
             [ 'attribute'=>'created_at',
                 'format'=> 'datetime',
-            'contentOptions' => ['style' => 'width: 150px;'],
+            //'contentOptions' => ['style' => 'width: 150px;'],
                 ],
             'tags',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Video $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'video_id' => $model->video_id]);
-                 }
+                 },
+//        Overriding ActionColumn => rewrite template
+                'template' => '{delete}',
+                'buttons' => [
+                        'delete' => function ($url) {
+                            return Html::a("Delete", $url, [
+                                    'data-method' => 'post',
+                                'data-confirm' => 'Are you sure you want to delete this item?',
+                            ]);
+                        }
+                ],
             ],
         ],
+        'options' => ['class' => 'table-responsive'],
     ]); ?>
 
 

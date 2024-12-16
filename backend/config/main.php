@@ -9,6 +9,8 @@ $params = array_merge(
 return [
     'id' => 'app-backend',
     'name' => 'Studio FitTube',
+    'language' => 'en-US',
+    'sourceLanguage' => 'vi',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -51,6 +53,18 @@ return [
         'formatter' => [
             'class' => 'yii\i18n\Formatter',
             'timeFormat' => 'php:H:i:s', // Default time format
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+//                    'forceTranslation' => true,
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
         ],
     ],
     'params' => $params,

@@ -11,10 +11,11 @@ use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
+//\Yii::$app->language = 'vi';
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
-    <html lang="<?= Yii::$app->language ?>" class="h-100">
+    <html lang="<?= Yii::$app->language ?>" class="vh-100">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,7 +26,7 @@ AppAsset::register($this);
 
         <?php $this->head() ?>
     </head>
-    <body class="">
+    <body class="h-100">
     <?php $this->beginBody() ?>
 
     <!-- All Pages have Header -->

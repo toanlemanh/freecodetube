@@ -7,8 +7,6 @@ use yii\widgets\DetailView;
 /** @var common\models\Video $model */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Videos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="video-view">
